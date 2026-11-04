@@ -28,10 +28,14 @@ async function main() {
     run('npm install');
   }
 
-  // 3) .env 생성 (없으면) 및 Firebase 환경 변수 추가
+  // 3) .env 생성 (없으면) 및 누락된 환경 변수 키 추가
   const envPath = path.join(projectRoot, '.env');
-  if (!existsSync(envPath)) {
-    const content = `EXPO_PUBLIC_API_BASE_URL=
+  const envTemplate = `# App
+EXPO_PUBLIC_API_BASE_URL=
+EXPO_PUBLIC_PROXY_URL=http://localhost:8080
+EXPO_PUBLIC_OLLAMA_URL=http://localhost:11434
+EXPO_PUBLIC_OLLAMA_MODEL=llama3.1:8b
+EXPO_PUBLIC_IMAGE_PROXY=http://localhost:4001/proxy?url={url}
 
 # Firebase Configuration (required for authentication)
 EXPO_PUBLIC_FIREBASE_API_KEY=
@@ -42,38 +46,79 @@ EXPO_PUBLIC_FIREBASE_STORAGE_BUCKET=
 EXPO_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=
 EXPO_PUBLIC_FIREBASE_APP_ID=
 EXPO_PUBLIC_FIREBASE_MEASUREMENT_ID=
+
+# Auth (Google)
+EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID=
+EXPO_PUBLIC_GOOGLE_IOS_CLIENT_ID=
+
+# Gemini (client + scripts)
+EXPO_PUBLIC_GEMINI_API_KEY=
+
+# Ollama proxy (server/proxy.js)
+PORT=8080
+OLLAMA_URL=http://localhost:11434
+MAX_CONCURRENT_REQUESTS=10
+
+# Image proxy (server/imageProxy.js)
+IMAGE_PROXY_PORT=4001
 `;
-    await fs.writeFile(envPath, content, 'utf8');
-    console.log('Created .env with Firebase configuration template');
+
+  function parseEnvKeys(content) {
+    const keys = new Set();
+    for (const line of content.split('\n')) {
+      const trimmed = line.trim();
+      if (!trimmed || trimmed.startsWith('#') || !trimmed.includes('=')) continue;
+      keys.add(trimmed.split('=', 1)[0].trim());
+    }
+    return keys;
+  }
+
+  if (!existsSync(envPath)) {
+    await fs.writeFile(envPath, envTemplate, 'utf8');
+    console.log('Created .env from full environment template');
   } else {
-    // 기존 .env 파일에 Firebase 변수가 없으면 추가
     try {
       const envContent = await fs.readFile(envPath, 'utf8');
-      const firebaseVars = [
-        'EXPO_PUBLIC_FIREBASE_API_KEY',
-        'EXPO_PUBLIC_FIREBASE_AUTH_DOMAIN',
-        'EXPO_PUBLIC_FIREBASE_PROJECT_ID',
-      ];
-      const hasFirebaseVars = firebaseVars.some(v => envContent.includes(v));
-      
-      if (!hasFirebaseVars) {
-        const firebaseConfig = `
+      const present = parseEnvKeys(envContent);
+      const linesToAdd = [];
+      let pendingComment = null;
 
-# Firebase Configuration (required for authentication)
-EXPO_PUBLIC_FIREBASE_API_KEY=
-EXPO_PUBLIC_FIREBASE_AUTH_DOMAIN=
-EXPO_PUBLIC_FIREBASE_DATABASE_URL=
-EXPO_PUBLIC_FIREBASE_PROJECT_ID=
-EXPO_PUBLIC_FIREBASE_STORAGE_BUCKET=
-EXPO_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=
-EXPO_PUBLIC_FIREBASE_APP_ID=
-EXPO_PUBLIC_FIREBASE_MEASUREMENT_ID=
-`;
-        await fs.appendFile(envPath, firebaseConfig, 'utf8');
-        console.log('Added Firebase configuration template to existing .env');
+      for (const raw of envTemplate.trim().split('\n')) {
+        if (!raw.trim()) {
+          if (linesToAdd.length > 0 && linesToAdd[linesToAdd.length - 1] !== '') {
+            linesToAdd.push('');
+          }
+          continue;
+        }
+        if (raw.startsWith('#')) {
+          pendingComment = raw;
+          continue;
+        }
+        const key = raw.split('=', 1)[0].trim();
+        if (present.has(key)) {
+          pendingComment = null;
+          continue;
+        }
+        if (pendingComment) {
+          if (linesToAdd.length > 0 && linesToAdd[linesToAdd.length - 1] !== '') {
+            linesToAdd.push('');
+          }
+          linesToAdd.push(pendingComment);
+          pendingComment = null;
+        }
+        linesToAdd.push(raw);
+        present.add(key);
+      }
+
+      if (linesToAdd.length > 0) {
+        const suffix = '\n' + linesToAdd.join('\n').replace(/\n+$/, '') + '\n';
+        await fs.appendFile(envPath, envContent.endsWith('\n') ? suffix : '\n' + suffix, 'utf8');
+        console.log(`Added missing env keys to .env: ${linesToAdd.filter((l) => l.includes('=')).map((l) => l.split('=')[0]).join(', ')}`);
+      } else {
+        console.log('.env already has all expected keys');
       }
     } catch (e) {
-      console.warn('Failed to check/update .env for Firebase vars:', e?.message || e);
+      console.warn('Failed to check/update .env:', e?.message || e);
     }
   }
 
@@ -182,11 +227,13 @@ EXPO_PUBLIC_FIREBASE_MEASUREMENT_ID=
   }
 
   console.log('\n✅ Setup complete. Next:');
-  console.log('- Configure Firebase: Add your Firebase credentials to .env file');
-  console.log('- Start dev server: npx expo start -c');
+  console.log('- Copy env template if needed: cp .env.example .env');
+  console.log('- Fill in credentials in .env (Firebase, Gemini, Google OAuth, etc.)');
+  console.log('- Start Ollama proxy: npm run proxy');
+  console.log('- Start image proxy: npm run proxylocal');
+  console.log('- Start dev server: npm run start');
   console.log('- iOS: npx expo run:ios');
   console.log('- Android: npx expo run:android');
-  console.log('- Proxy server: npm run proxy');
   console.log('\n📝 Note: Authentication is required for all pages except /auth/login and /auth/signup');
 }
 

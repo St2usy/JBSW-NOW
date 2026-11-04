@@ -4,8 +4,7 @@ import { View, Text, ActivityIndicator } from "react-native";
 import EventsList from "../../src/components/EventsList";
 import type { Event } from "../../src/types";
 import { getFavorites as getFavIds, subscribe, hydrateFavorites as hydrateFavs } from "../../src/services/favorites";
-import { fetchNoticesCleaned, fetchRecentNewsWithinDays } from "../../src/api/eventsFirestore";
-import { enrichEventsWithTags } from "../../src/services/tags";
+import { fetchNoticesCleaned } from "../../src/api/eventsFirestore";
 import { PageTransition } from "../../src/components/PageTransition";
 import { usePageTransition } from "../../src/hooks/usePageTransition";
 
@@ -21,15 +20,12 @@ const FavoritesScreen = memo(() => {
     setLoading(true);
     try {
       await hydrateFavs();
-      const [notices, recentEvents] = await Promise.all([
-        fetchNoticesCleaned(200),
-        fetchRecentNewsWithinDays(90, 200),
-      ]);
+      const notices = await fetchNoticesCleaned(200);
       const mappedNotices: Event[] = (notices || []).map((n: any): Event => ({
         id: `notice-${n.id}`,
         title: n.title,
         summary: n.content ? String(n.content).slice(0, 200) : null,
-        startAt: n.date || n.crawled_at || n.firebase_created_at || new Date().toISOString(),
+        startAt: n.date || n.crawled_at || new Date().toISOString(),
         endAt: null,
         location: null,
         tags: ["공지"],
@@ -38,10 +34,7 @@ const FavoritesScreen = memo(() => {
         posterImageUrl: Array.isArray(n.image_urls) && n.image_urls.length > 0 ? n.image_urls[0] : null,
         ai: null,
       }));
-      const noticesWithTags = await enrichEventsWithTags(mappedNotices as any);
-      const mergedMap = new Map<string, Event>();
-      [...noticesWithTags, ...(recentEvents || [])].forEach((e) => { if (e && e.id) mergedMap.set(e.id, e); });
-      setAllItems(Array.from(mergedMap.values()));
+      setAllItems(mappedNotices);
     } catch (e) {
       setAllItems([]);
     } finally {

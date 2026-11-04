@@ -1,7 +1,7 @@
 import "../db/firebase";
 import { getFirestore, doc, setDoc, updateDoc, getDoc, serverTimestamp, increment, collection, query, orderBy, limit, getDocs, where, documentId, Timestamp } from "firebase/firestore";
 import type { Event } from "../types";
-import { fetchRecentNewsWithinDays, fetchRecentNewsByDateWithinDays, fetchNoticesCleaned } from "../api/eventsFirestore";
+import { fetchNoticesCleaned } from "../api/eventsFirestore";
 
 export type HotClickDoc = {
   id: string; // key
@@ -212,161 +212,24 @@ function noticeToEvent(notice: any): Event {
   } as Event;
 }
 
-// 최근 N일 내 이벤트 중 hotCount(=hotClicks.count) 상위 K개 반환
+// 최근 N일 공지를 원문 조회수(views) 내림차순으로 자른다.
 export async function fetchRecentHotTopWithinDays(days: number = 30, topCount: number = 10): Promise<Event[]> {
-  // 병렬 처리: events와 notices를 동시에 조회
-  const [eventsResult, noticesResult] = await Promise.allSettled([
-    fetchRecentNewsWithinDays(days, Math.max(150, topCount * 10)),
-    fetchNoticesCleaned(Math.max(150, topCount * 10)),
-  ]);
-  
-  // 1. events 컬렉션에서 최근 이벤트 조회
-  let recentEvents: Event[] = [];
-  if (eventsResult.status === "fulfilled" && eventsResult.value.length > 0) {
-    recentEvents = eventsResult.value;
-  } else {
-    // 폴백: date-string 필터 시도
-    try {
-      recentEvents = await fetchRecentNewsByDateWithinDays(days, Math.max(150, topCount * 10));
-    } catch (error) {
-      console.warn("[HOT] no recent events by any strategy", error);
-    }
+  try {
+    const notices = await fetchNoticesCleaned(Math.max(150, topCount * 10));
+    const cutoffMs = Date.now() - days * 24 * 60 * 60 * 1000;
+    const recent = notices.filter((notice) => {
+      const raw = notice.date || notice.crawled_at;
+      const ms = raw ? new Date(raw).getTime() : NaN;
+      return Number.isFinite(ms) && ms >= cutoffMs;
+    });
+    recent.sort((a, b) => (Number(b.views) || 0) - (Number(a.views) || 0));
+    return recent.slice(0, topCount).map((notice) => ({
+      ...noticeToEvent(notice),
+      hotClickCount: Number(notice.views) || 0,
+    }));
+  } catch (error) {
+    console.warn("[HOT] fetchRecentHotTopWithinDays failed", error);
+    return [];
   }
-  
-  // 2. notices 컬렉션에서도 최근 공지 조회
-  let recentNotices: Event[] = [];
-  if (noticesResult.status === "fulfilled") {
-    try {
-      const notices = noticesResult.value;
-      const cutoffMs = Date.now() - days * 24 * 60 * 60 * 1000;
-      recentNotices = notices
-        .map(noticeToEvent)
-        .filter((ev) => {
-          const evDateMs = new Date(ev.startAt).getTime();
-          return evDateMs >= cutoffMs;
-        });
-      console.log("[HOT] fetched recent notices", { count: recentNotices.length });
-    } catch (error) {
-      console.warn("[HOT] failed to process notices", error);
-    }
-  }
-  
-  // 3. events와 notices 합치기
-  const allRecent = [...recentEvents, ...recentNotices];
-  
-  if (!allRecent.length) {
-    console.warn("[HOT] no recent events/notices by any strategy; fallback to hotClicks top");
-    return await fetchHotTop(topCount);
-  }
-  console.log("[HOT] candidates", { days, events: recentEvents.length, notices: recentNotices.length, total: allRecent.length });
-
-  const db = getFirestore();
-  const col = collection(db, COL);
-
-  // ID 정규화: incrementHotClick과 동일한 방식으로 정규화
-  const idToCount = new Map<string, number>();
-  const normalizedIdToOriginalId = new Map<string, string>();
-  
-  // 원본 ID를 정규화된 ID로 매핑
-  allRecent.forEach((ev) => {
-    const normalizedId = normalizeHotClickId(ev.id);
-    normalizedIdToOriginalId.set(normalizedId, ev.id);
-  });
-
-  // Firestore의 documentId() in 쿼리는 최대 10개까지이므로 청크로 나누어 조회
-  // 병렬 처리로 성능 개선
-  const chunkSize = 10;
-  const normalizedIds = Array.from(normalizedIdToOriginalId.keys());
-  
-  // 청크별로 병렬 처리
-  const chunkPromises = [];
-  for (let i = 0; i < normalizedIds.length; i += chunkSize) {
-    const chunkIds = normalizedIds.slice(i, i + chunkSize);
-    if (chunkIds.length === 0) continue;
-    
-    const chunkPromise = (async () => {
-      try {
-        const snap = await getDocs(query(col, where(documentId(), "in", chunkIds)));
-        snap.forEach((d) => {
-          const data = d.data() as any;
-          const count = Number(data?.count ?? 0) || 0;
-          const originalId = normalizedIdToOriginalId.get(d.id);
-          if (originalId) {
-            idToCount.set(originalId, count);
-          }
-        });
-      } catch (error) {
-        console.warn("[HOT] chunk query failed, fallback by getDoc loop", error);
-        // 폴백: 개별 getDoc (병렬 처리)
-        const getDocPromises = chunkIds.map(async (normalizedId) => {
-          try {
-            const ref = doc(db, COL, normalizedId);
-            const s = await getDoc(ref);
-            if (s.exists()) {
-              const count = Number(s.data()?.count ?? 0) || 0;
-              const originalId = normalizedIdToOriginalId.get(normalizedId);
-              if (originalId) {
-                idToCount.set(originalId, count);
-              }
-            }
-          } catch (err) {
-            console.warn("[HOT] getDoc failed for", normalizedId, err);
-          }
-        });
-        await Promise.allSettled(getDocPromises);
-      }
-    })();
-    
-    chunkPromises.push(chunkPromise);
-  }
-  
-  // 모든 청크를 병렬로 처리
-  await Promise.allSettled(chunkPromises);
-
-  // count를 부여 (Map에 없으면 undefined로 유지하여 실제 0과 구분)
-  const enriched = allRecent.map((ev) => {
-    const count = idToCount.get(ev.id);
-    return { ev, count: count !== undefined ? count : undefined };
-  });
-  
-  // 디버깅: 클릭 수 분포 확인
-  const counts = enriched.map((x) => x.count).filter((c) => c !== undefined && c > 0) as number[];
-  const withClicks = enriched.filter((x) => x.count !== undefined && x.count > 0);
-  const withZero = enriched.filter((x) => x.count === 0);
-  const withoutData = enriched.filter((x) => x.count === undefined);
-  
-  console.log("[HOT] click counts distribution", {
-    total: enriched.length,
-    withClicks: withClicks.length,
-    withZero: withZero.length,
-    withoutData: withoutData.length,
-    maxCount: counts.length > 0 ? Math.max(...counts) : 0,
-    sampleCounts: counts.slice(0, 10),
-  });
-  
-  enriched.sort((a, b) => {
-    // 조회수가 있는 것 우선, 그 다음 조회수 내림차순
-    if (a.count === undefined && b.count !== undefined) return 1;
-    if (a.count !== undefined && b.count === undefined) return -1;
-    if (a.count === undefined && b.count === undefined) return 0;
-    const byCount = (b.count ?? 0) - (a.count ?? 0);
-    if (byCount !== 0) return byCount;
-    // 동률일 경우 원래 리스트 순서를 유지(안정 정렬 유사 효과)
-    return 0;
-  });
-  
-  // 조회수가 있는 항목 우선, 없으면 최근 순으로 반환
-  const result = enriched.slice(0, topCount).map((x) => ({
-    ...x.ev,
-    hotClickCount: x.count !== undefined ? x.count : null, // undefined는 null로 변환하여 UI에서 구분
-  }));
-  
-  console.log("[HOT] final result", { 
-    total: enriched.length, 
-    withClicks: withClicks.length, 
-    returned: result.length 
-  });
-  
-  return result;
 }
 

@@ -11,6 +11,13 @@
  *   node scripts/download-ollama-model.mjs qwen2.5:7b
  */
 
+import path from "path";
+import { fileURLToPath } from "url";
+import dotenv from "dotenv";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+dotenv.config({ path: path.join(__dirname, "..", ".env") });
+
 const OLLAMA_URL = process.env.OLLAMA_URL || "http://localhost:11434";
 const modelName = process.argv[2];
 

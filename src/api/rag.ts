@@ -4,8 +4,6 @@
  */
 
 import { fetchNoticesCleaned, type Notice } from "./eventsFirestore";
-import { fetchRecentNews } from "./eventsFirestore";
-import type { Event } from "../types";
 
 export type RetrievedDocument = {
   id: string;
@@ -23,7 +21,6 @@ export type RetrievedDocument = {
 function searchDocuments(
   query: string,
   notices: Notice[],
-  events: Event[],
   maxResults: number = 5
 ): RetrievedDocument[] {
   const queryLower = query.toLowerCase();
@@ -52,30 +49,6 @@ function searchDocuments(
         url: notice.url || null,
         date: notice.date || notice.firebase_created_at || null,
         score, // 내부 정렬용
-      } as RetrievedDocument & { score: number });
-    }
-  }
-
-  // 이벤트 검색
-  for (const event of events) {
-    const titleLower = event.title.toLowerCase();
-    const summaryLower = (event.summary || "").toLowerCase();
-
-    let score = 0;
-    for (const word of queryWords) {
-      if (titleLower.includes(word)) score += 3;
-      if (summaryLower.includes(word)) score += 1;
-    }
-
-    if (score > 0) {
-      results.push({
-        id: event.id,
-        title: event.title,
-        content: event.summary || event.title,
-        source: "event",
-        url: event.sourceUrl || null,
-        date: event.startAt || null,
-        score,
       } as RetrievedDocument & { score: number });
     }
   }
@@ -159,13 +132,7 @@ export async function retrieveRelevantDocuments(
   maxResults: number = 5
 ): Promise<RetrievedDocument[]> {
   try {
-    // Firebase에서 최근 공지사항과 이벤트 가져오기
-    const [notices, events] = await Promise.all([
-      fetchNoticesCleaned(500), // 충분히 가져온 후 필터링
-      fetchRecentNews(500), // 최근 이벤트
-    ]);
-
-    // 최근 90일 이내 공지사항만 필터링
+    const notices = await fetchNoticesCleaned(500);
     const recentNotices = filterRecentNotices(notices, 90);
     
     console.log("[RAG] Filtered notices", {
@@ -174,10 +141,7 @@ export async function retrieveRelevantDocuments(
       cutoff: new Date(Date.now() - 90 * 24 * 60 * 60 * 1000).toISOString(),
     });
 
-    // 검색 실행
-    const results = searchDocuments(query, recentNotices, events, maxResults);
-
-    return results;
+    return searchDocuments(query, recentNotices, maxResults);
   } catch (error) {
     console.error("[RAG] 검색 오류:", error);
     return [];

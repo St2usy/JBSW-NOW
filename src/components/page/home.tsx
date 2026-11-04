@@ -7,8 +7,7 @@ import HotBannerSlider from "../HotBannerSlider";
 import QuickMenuGrid from "../QuickMenuGrid";
 import WebQuickMenu from "../WebQuickMenu";
 import { subscribe as subscribeFavorites, hydrateFavorites as hydrateFavs } from "../../services/favorites";
-import { fetchRecentNews, fetchNoticesCleaned } from "../../api/eventsFirestore";
-import { enrichEventsWithTags, classifyEventTags } from "../../services/tags";
+import { fetchNoticesCleaned } from "../../api/eventsFirestore";
 import EventsList from "../EventsList";
 import EventCard from "../EventCard";
 
@@ -21,7 +20,6 @@ export default function Home() {
   const router = useRouter();
   const [news, setNews] = useState<any[]>([]);
   const [newsLimit] = useState<number>(200);
-  const [noticeLimit] = useState<number>(3);
   const [favTick, setFavTick] = useState<number>(0);
   const [screenWidth, setScreenWidth] = useState(Dimensions.get("window").width);
 
@@ -36,48 +34,29 @@ export default function Home() {
   useEffect(() => {
     (async () => {
       try {
-        // 이벤트와 공지를 병렬로 조회
-        const [eventsDataRaw, notices] = await Promise.all([
-          fetchRecentNews(newsLimit),
-          fetchNoticesCleaned(noticeLimit),
-        ]);
-
-
-        // Notice를 Event 형태로 매핑하며 Gemini 기반 태그 라벨링 적용
-        const noticeAsEvents = await Promise.all((notices || []).map(async (n: any) => {
+        const notices = await fetchNoticesCleaned(newsLimit);
+        const noticeAsEvents = (notices || []).map((n: any) => {
           const firstImage = Array.isArray(n.image_urls) && n.image_urls.length > 0 ? n.image_urls[0] : null;
-          const startAtIso = deriveIsoDate(n.date || n.crawled_at || n.firebase_created_at);
-          const baseEvent = {
+          return {
             id: `notice-${n.id}`,
             title: n.title,
             summary: n.content ? String(n.content).slice(0, 200) : null,
-            startAt: startAtIso,
+            startAt: deriveIsoDate(n.date || n.crawled_at),
             endAt: null,
             location: null,
-            tags: [],
+            tags: ["공지"],
             org: { id: "notice", name: n.author || "공지", logoUrl: null },
             sourceUrl: n.url || null,
             posterImageUrl: firstImage,
             ai: null,
-          } as any;
-          try {
-            const tags = await classifyEventTags(baseEvent as any);
-            return { ...baseEvent, tags } as any;
-          } catch {
-            return { ...baseEvent, tags: ["공지"] } as any;
-          }
-        }));
-
-        // 이벤트 태그 정제/보강
-        const eventsData = await enrichEventsWithTags(Array.isArray(eventsDataRaw) ? eventsDataRaw : [] as any);
-
-        const merged = [...noticeAsEvents, ...eventsData];
-        setNews(merged);
+          };
+        });
+        setNews(noticeAsEvents);
       } catch (e) {
-        console.warn("[UI] fetchRecentNews error", e);
+        console.warn("[UI] fetchNotices error", e);
       }
     })();
-  }, [newsLimit, noticeLimit]);
+  }, [newsLimit]);
 
   // 즐겨찾기 변경 구독: 재조회 없이 카드 상태만 리렌더
   useEffect(() => {
