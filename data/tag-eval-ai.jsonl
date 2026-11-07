@@ -1,0 +1,100 @@
+{"id": "92", "ai_tags": ["수강", "학사"], "ai_primary": "수강", "raw": "{\n  \"tags\": [\"수강\", \"학사\"],\n  \"primary\": \"수강\"\n}", "seconds": 2.77}
+{"id": "913", "ai_tags": ["수강"], "ai_primary": "수강", "raw": "{\n\"primary\": \"학사\",\n\"tags\": [\"등록금\", \"수강\"]\n}", "seconds": 1.64}
+{"id": "903", "ai_tags": ["대외활동"], "ai_primary": "대외활동", "raw": "{\n  \"tags\": [\"대외활동\"],\n  \"primary\": \"대외활동\"\n}", "seconds": 1.67}
+{"id": "131", "ai_tags": ["수강"], "ai_primary": "수강", "raw": "{\n\"primary\": \"학사\",\n\"tags\": [\"수강\", \"등록금\"],\n\"title\": \"2026학년도 1차 전공 선호도 조사 결과 상위 지망 학과 안내\"\n}", "seconds": 3.3}
+{"id": "232", "ai_tags": ["일반"], "ai_primary": "일반", "raw": "{\n  \"primary\": \"수강\",\n  \"tags\": [\"교류수학\"]\n}", "seconds": 1.79}
+{"id": "7", "ai_tags": ["일반"], "ai_primary": "일반", "raw": "{\n\"primary\": \"교내활동\",\n\"tags\": [\"멘토링\", \"교육\"]\n}", "seconds": 1.85}
+{"id": "216", "ai_tags": ["일반"], "ai_primary": "일반", "raw": "{\n  \"primary\": \"수강\",\n  \"tags\": [\"교류수학\"]\n}", "seconds": 1.75}
+{"id": "6", "ai_tags": ["학과소식"], "ai_primary": "학과소식", "raw": "{\n    \"tags\": [\"학과소식\"],\n    \"primary\": \"학과소식\"\n}", "seconds": 1.91}
+{"id": "943", "ai_tags": ["일반"], "ai_primary": "일반", "raw": "{\n  \"primary\": \"수강\",\n  \"tags\": [\"교류수학\"]\n}", "seconds": 1.75}
+{"id": "144", "ai_tags": ["공모전"], "ai_primary": "공모전", "raw": "{\n\"primary\": \"취업\",\n\"tags\": [\"공모전\"]\n}", "seconds": 1.53}
+{"id": "22", "ai_tags": ["대외활동"], "ai_primary": "대외활동", "raw": "{\n\"primary\": \"공모전\",\n\"tags\": [\"대외활동\"]\n}", "seconds": 1.62}
+{"id": "904", "ai_tags": ["수강"], "ai_primary": "수강", "raw": "{\n\"primary\": \"학사\",\n\"tags\": [\"수강\", \"등록금\"]\n}", "seconds": 1.78}
+{"id": "83", "ai_tags": ["학사", "장학금"], "ai_primary": "학사", "raw": "{\n\"primary\": \"수강\",\n\"tags\": [\"학사\", \"장학금\"]\n}", "seconds": 1.69}
+{"id": "898", "ai_tags": ["학사", "학과소식"], "ai_primary": "학과소식", "raw": "{\n  \"tags\": [\"학사\", \"학과소식\"],\n  \"primary\": \"학과소식\"\n}", "seconds": 2.0}
+{"id": "148", "ai_tags": ["학사", "지원금"], "ai_primary": "학사", "raw": "{\n  \"tags\": [\"학사\", \"지원금\"],\n  \"primary\": \"학사\"\n}", "seconds": 1.77}
+{"id": "18", "ai_tags": ["일반"], "ai_primary": "일반", "raw": "{\n  \"tags\": [\"학적\", \"등록금\"],\n  \"primary\": \"학적\",\n  \"text\": \"대학생이 반드시 지켜야 할 저작권 상식&불법복제 예방활동 안내 문화체육관광부와 한국저작권보호원은 \\u201c저작권법\\u201d제133조(", "seconds": 5.2}
+{"id": "186", "ai_tags": ["취업", "공모전"], "ai_primary": "취업", "raw": "{\n  \"tags\": [\"취업\", \"공모전\"],\n  \"primary\": \"취업\"\n}", "seconds": 2.11}
+{"id": "927", "ai_tags": ["일반"], "ai_primary": "일반", "raw": "{\n\"primary\": \"수강\",\n\"tags\": [\"학점교류\", \"중간고사\"]\n}", "seconds": 2.01}
+{"id": "117", "ai_tags": ["일반"], "ai_primary": "일반", "raw": "{\n\"primary\": \"학사\",\n\"tags\": [\"생활관\", \"등록금\"]\n}", "seconds": 1.73}
+{"id": "59", "ai_tags": ["교내활동", "취업"], "ai_primary": "교내활동", "raw": "{\n\"primary\": \"공모전\",\n\"tags\": [\"교내활동\", \"취업\"]\n}", "seconds": 1.76}
+{"id": "19", "ai_tags": ["교내활동"], "ai_primary": "교내활동", "raw": "{\n  \"tags\": [\"교내활동\"],\n  \"primary\": \"교내활동\"\n}", "seconds": 1.72}
+{"id": "116", "ai_tags": ["학사"], "ai_primary": "학사", "raw": "{\n\"primary\": \"졸업\",\n\"tags\": [\"학사\", \"등록금\"]\n}", "seconds": 1.8}
+{"id": "213", "ai_tags": ["일반"], "ai_primary": "일반", "raw": "{\n  \"primary\": \"수강\",\n  \"tags\": [\"교류수학\", \"등록금\"]\n}", "seconds": 2.02}
+{"id": "939", "ai_tags": ["일반"], "ai_primary": "일반", "raw": "{\n  \"primary\": \"수강\",\n  \"tags\": [\"교류수학\", \"계절수업\"]\n}", "seconds": 2.12}
+{"id": "187", "ai_tags": ["취업", "공모전"], "ai_primary": "취업", "raw": "{\n  \"tags\": [\"취업\", \"공모전\"],\n  \"primary\": \"취업\"\n}", "seconds": 2.07}
+{"id": "178", "ai_tags": ["수강", "지원금"], "ai_primary": "수강", "raw": "{\n  \"tags\": [\"수강\", \"지원금\"],\n  \"primary\": \"수강\"\n}", "seconds": 1.77}
+{"id": "102", "ai_tags": ["학사", "장학금"], "ai_primary": "학사", "raw": "{\n\"primary\": \"수강\",\n\"tags\": [\"학사\", \"장학금\"]\n}", "seconds": 1.78}
+{"id": "101", "ai_tags": ["일반"], "ai_primary": "일반", "raw": "{\n\"primary\": \"장학금\",\n\"tags\": [\"국가장학금\", \"신청\"]\n}", "seconds": 1.91}
+{"id": "10", "ai_tags": ["대외활동"], "ai_primary": "대외활동", "raw": "{\n\"primary\": \"공모전\",\n\"tags\": [\"대외활동\"]\n}", "seconds": 1.64}
+{"id": "942", "ai_tags": ["교내활동", "장학금"], "ai_primary": "교내활동", "raw": "{\n\"primary\": \"대외활동\",\n\"tags\": [\"교내활동\", \"장학금\"]\n}", "seconds": 1.96}
+{"id": "921", "ai_tags": ["일반"], "ai_primary": "일반", "raw": "{\n\"primary\": \"학사\",\n\"tags\": [\"등록금\", \"성적\"]\n}", "seconds": 1.9}
+{"id": "143", "ai_tags": ["취업"], "ai_primary": "취업", "raw": "{\n  \"tags\": [\"취업\", \"채용\"],\n  \"primary\": \"취업\"\n}", "seconds": 2.09}
+{"id": "96", "ai_tags": ["일반"], "ai_primary": "일반", "raw": "{\n    \"tags\": [\"수강\"],\n    \"primary\": \"교과목\",\n    \"content\": \"2026학년도 2학기 [확률및통계] 교과목 TA 모집(정요한 교수님)  2026학년도 2학기 [확률 및 통계] 교과목 TA 모집합니다. 관심있는 학생은 로 신청 바랍니다. (", "seconds": 5.51}
+{"id": "192", "ai_tags": ["일반"], "ai_primary": "일반", "raw": "{\n\"primary\": \"취업\",\n\"tags\": [\"채용\", \"인턴\"]\n}", "seconds": 1.66}
+{"id": "48", "ai_tags": ["수강"], "ai_primary": "수강", "raw": "{\n  \"tags\": [\"수강\"],\n  \"primary\": \"수강\"\n}", "seconds": 1.61}
+{"id": "106", "ai_tags": ["학사", "취업"], "ai_primary": "학사", "raw": "{\n\"primary\": \"수강\",\n\"tags\": [\"학사\", \"취업\"]\n}", "seconds": 1.62}
+{"id": "180", "ai_tags": ["취업"], "ai_primary": "취업", "raw": "{\n  \"tags\": [\"취업\", \"채용\"],\n  \"primary\": \"취업\"\n}", "seconds": 1.96}
+{"id": "223", "ai_tags": ["일반"], "ai_primary": "일반", "raw": "{\n  \"primary\": \"수강\",\n  \"tags\": [\"교류수학\"]\n}", "seconds": 1.8}
+{"id": "42", "ai_tags": ["대외활동", "취업"], "ai_primary": "대외활동", "raw": "{\n\"primary\": \"공모전\",\n\"tags\": [\"대외활동\", \"취업\"]\n}", "seconds": 1.73}
+{"id": "146", "ai_tags": ["취업", "공모전"], "ai_primary": "취업", "raw": "{\n  \"tags\": [\"취업\", \"공모전\"],\n  \"primary\": \"취업\"\n}", "seconds": 1.91}
+{"id": "207", "ai_tags": ["일반"], "ai_primary": "일반", "raw": "{\n  \"primary\": \"수강\",\n  \"tags\": [\"교류수학\"]\n}", "seconds": 1.73}
+{"id": "93", "ai_tags": ["수강"], "ai_primary": "수강", "raw": "{\n\"primary\": \"학사\",\n\"tags\": [\"수강\", \"등록금\"]\n}", "seconds": 1.77}
+{"id": "73", "ai_tags": ["지원금"], "ai_primary": "지원금", "raw": "{\n\"primary\": \"취업\",\n\"tags\": [\"지원금\"]\n}", "seconds": 1.51}
+{"id": "75", "ai_tags": ["일반"], "ai_primary": "일반", "raw": "{\n\"primary\": \"수강\",\n\"tags\": [\"학부\", \"교과목\"]\n}", "seconds": 1.89}
+{"id": "202", "ai_tags": ["일반"], "ai_primary": "일반", "raw": "{\n\"primary\": \"취업\",\n\"tags\": [\"채용\"]\n}", "seconds": 1.41}
+{"id": "227", "ai_tags": ["학사", "대학원"], "ai_primary": "학사", "raw": "{\n  \"primary\": \"수강\",\n  \"tags\": [\"학사\", \"대학원\"]\n}", "seconds": 1.88}
+{"id": "972", "ai_tags": ["수강"], "ai_primary": "수강", "raw": "{\n    \"tags\": [\"수강\", \"등록금\"],\n    \"primary\": \"학사\"\n}", "seconds": 1.86}
+{"id": "963", "ai_tags": ["공모전"], "ai_primary": "공모전", "raw": "{\n  \"primary\": \"공모전\",\n  \"tags\": [\"공모전\", \"경진대회\"]\n}", "seconds": 2.03}
+{"id": "218", "ai_tags": ["일반"], "ai_primary": "일반", "raw": "{\n  \"primary\": \"수강\",\n  \"tags\": [\"교류수학\"]\n}", "seconds": 1.77}
+{"id": "140", "ai_tags": ["일반"], "ai_primary": "일반", "raw": "{\n\"primary\": \"취업\",\n\"tags\": [\"채용\"]\n}", "seconds": 1.4}
+{"id": "2", "ai_tags": ["학과소식"], "ai_primary": "학과소식", "raw": "{\n    \"primary\": \"수상내역\",\n    \"tags\": [\"학과소식\"]\n}", "seconds": 1.93}
+{"id": "68", "ai_tags": ["수강", "졸업"], "ai_primary": "수강", "raw": "{\n\"primary\": \"장학금\",\n\"tags\": [\"수강\", \"졸업\"]\n}", "seconds": 1.84}
+{"id": "900", "ai_tags": ["대외활동"], "ai_primary": "대외활동", "raw": "{\n  \"primary\": \"공모전\",\n  \"tags\": [\"대외활동\"]\n}", "seconds": 1.9}
+{"id": "944", "ai_tags": ["일반"], "ai_primary": "일반", "raw": "{\n  \"primary\": \"수강\",\n  \"tags\": [\"교류수학\", \"계절수업\"]\n}", "seconds": 2.15}
+{"id": "250", "ai_tags": ["지원금", "학사"], "ai_primary": "지원금", "raw": "{\n\"primary\": \"장학금\",\n\"tags\": [\"지원금\", \"학사\"]\n}", "seconds": 1.83}
+{"id": "162", "ai_tags": ["지원금"], "ai_primary": "지원금", "raw": "{\n\"primary\": \"취업\",\n\"tags\": [\"지원금\"]\n}", "seconds": 1.56}
+{"id": "175", "ai_tags": ["취업", "지원금"], "ai_primary": "취업", "raw": "{\n  \"tags\": [\"취업\", \"지원금\"],\n  \"primary\": \"취업\"\n}", "seconds": 1.76}
+{"id": "137", "ai_tags": ["대학원", "학사"], "ai_primary": "대학원", "raw": "{\n\"tags\": [\"대학원\", \"학사\"],\n\"primary\": \"대학원\",\n\"title\": \"\",\n\"content\": \"\" \n}", "seconds": 2.38}
+{"id": "247", "ai_tags": ["공모전"], "ai_primary": "공모전", "raw": "{\n\"primary\": \"공모전\",\n\"tags\": [\"공모전\", \"해커톤\"]\n}", "seconds": 1.95}
+{"id": "91", "ai_tags": ["일반"], "ai_primary": "일반", "raw": "{\n\"primary\": \"학사\",\n\"tags\": [\"휴학\", \"등록금\"]\n}", "seconds": 1.75}
+{"id": "237", "ai_tags": ["일반"], "ai_primary": "일반", "raw": "{\n  \"primary\": \"수강\",\n  \"tags\": [\"교류수학\"]\n}", "seconds": 1.75}
+{"id": "61", "ai_tags": ["일반"], "ai_primary": "일반", "raw": "{\n\"primary\": \"학사\",\n\"tags\": [\"등록금\", \"성적\"]\n}", "seconds": 1.76}
+{"id": "935", "ai_tags": ["일반"], "ai_primary": "일반", "raw": "{\n  \"primary\": \"수강\",\n  \"tags\": [\"교류수학\"]\n}", "seconds": 1.74}
+{"id": "119", "ai_tags": ["수강"], "ai_primary": "수강", "raw": "{\n\"primary\": \"졸업\",\n\"tags\": [\"수강\"]\n}", "seconds": 1.56}
+{"id": "51", "ai_tags": ["수강"], "ai_primary": "수강", "raw": "{\n\"primary\": \"학사\",\n\"tags\": [\"수강\", \"등록금\"]\n}", "seconds": 1.74}
+{"id": "45", "ai_tags": ["공모전"], "ai_primary": "공모전", "raw": "{\n  \"tags\": [\"공모전\"],\n  \"primary\": \"공모전\"\n}", "seconds": 1.87}
+{"id": "13", "ai_tags": ["일반"], "ai_primary": "일반", "raw": "{\n\"primary\": \"교내활동\",\n\"tags\": [\"멘토링\", \"동아리\"]\n}", "seconds": 1.94}
+{"id": "32", "ai_tags": ["학사", "취업"], "ai_primary": "학사", "raw": "{\n\"primary\": \"공모전\",\n\"tags\": [\"학사\", \"취업\"]\n}", "seconds": 1.71}
+{"id": "937", "ai_tags": ["일반"], "ai_primary": "일반", "raw": "{\n  \"primary\": \"수강\",\n  \"tags\": [\"교류수학\", \"계절수업\"]\n}", "seconds": 2.14}
+{"id": "156", "ai_tags": ["일반"], "ai_primary": "일반", "raw": "{\n\"primary\": \"취업\",\n\"tags\": [\"채용\", \"인턴\"]\n}", "seconds": 1.8}
+{"id": "220", "ai_tags": ["일반"], "ai_primary": "일반", "raw": "{\n  \"primary\": \"수강\",\n  \"tags\": [\"교류수학\"]\n}", "seconds": 1.76}
+{"id": "105", "ai_tags": ["수강"], "ai_primary": "수강", "raw": "{\n\"primary\": \"수강\",\n\"tags\": [\"수강\"]\n}", "seconds": 1.55}
+{"id": "60", "ai_tags": ["일반"], "ai_primary": "일반", "raw": "{\n\"primary\": \"학사\",\n\"tags\": [\"등록\", \"등록금\"]\n}", "seconds": 1.72}
+{"id": "957", "ai_tags": ["일반"], "ai_primary": "일반", "raw": "{\n  \"primary\": \"수강\",\n  \"tags\": [\"교류수학\"]\n}", "seconds": 1.76}
+{"id": "153", "ai_tags": ["공모전"], "ai_primary": "공모전", "raw": "{\n\"primary\": \"취업\",\n\"tags\": [\"공모전\"]\n}", "seconds": 1.56}
+{"id": "161", "ai_tags": ["취업"], "ai_primary": "취업", "raw": "{\n\"tags\": [\"취업\", \"채용\"],\n\"primary\": \"취업\"\n}", "seconds": 1.79}
+{"id": "941", "ai_tags": ["일반"], "ai_primary": "일반", "raw": "{\n  \"primary\": \"수강\",\n  \"tags\": [\"교류수학\"]\n}", "seconds": 1.73}
+{"id": "198", "ai_tags": ["교내활동", "지원금"], "ai_primary": "교내활동", "raw": "{\n\"primary\": \"대외활동\",\n\"tags\": [\"교내활동\", \"지원금\"]\n}", "seconds": 1.89}
+{"id": "155", "ai_tags": ["취업"], "ai_primary": "취업", "raw": "{\n    \"tags\": [\"취업\", \"공채\"],\n    \"primary\": \"취업\"\n}", "seconds": 1.84}
+{"id": "916", "ai_tags": ["일반"], "ai_primary": "일반", "raw": "{\n\"primary\": \"교내활동\",\n\"tags\": [\"멘토링\"]\n}", "seconds": 1.63}
+{"id": "112", "ai_tags": ["수강"], "ai_primary": "수강", "raw": "{\n\"primary\": \"학사\",\n\"tags\": [\"수강\", \"등록금\"]\n}", "seconds": 1.79}
+{"id": "910", "ai_tags": ["일반"], "ai_primary": "일반", "raw": "{\n  \"primary\": \"대외활동\",\n  \"tags\": [\"교내 프로그램\"]\n}", "seconds": 1.76}
+{"id": "125", "ai_tags": ["수강"], "ai_primary": "수강", "raw": "{\n\"primary\": \"수강\",\n\"tags\": [\"수강\", \"등록금\"]\n}", "seconds": 1.79}
+{"id": "184", "ai_tags": ["취업"], "ai_primary": "취업", "raw": "{\n  \"tags\": [\"취업\", \"채용\"],\n  \"primary\": \"취업\"\n}", "seconds": 1.94}
+{"id": "940", "ai_tags": ["일반"], "ai_primary": "일반", "raw": "{\n  \"primary\": \"수강\",\n  \"tags\": [\"교류수학\", \"계절수업\"]\n}", "seconds": 2.15}
+{"id": "81", "ai_tags": ["수강"], "ai_primary": "수강", "raw": "{\n\"primary\": \"교내활동\",\n\"tags\": [\"수강\", \"멘토링\"]\n}", "seconds": 1.9}
+{"id": "152", "ai_tags": ["일반"], "ai_primary": "일반", "raw": "{\n\"tags\": [\"취업\"],\n\"title\": \"2026년 2학기 해외취업 특강(1차) 참여 모집 안내(~9.13까지 신청)\",\n\"content\": \"우리 대학 학생들의 글로벌 취업역량 강화를 위하여 실시하는「2026년 2학기 해외취업 특강(1차)」을 아래와 같이 진행하", "seconds": 5.46}
+{"id": "938", "ai_tags": ["학사"], "ai_primary": "학사", "raw": "{\n  \"primary\": \"수강\",\n  \"tags\": [\"학사\"]\n}", "seconds": 1.67}
+{"id": "950", "ai_tags": ["일반"], "ai_primary": "일반", "raw": "{\n  \"primary\": \"수강\",\n  \"tags\": [\"교류수학\"]\n}", "seconds": 1.76}
+{"id": "967", "ai_tags": ["대외활동"], "ai_primary": "대외활동", "raw": "{\n\"primary\": \"공모전\",\n\"tags\": [\"대외활동\"]\n}", "seconds": 1.61}
+{"id": "167", "ai_tags": ["취업"], "ai_primary": "취업", "raw": "{\n  \"tags\": [\"취업\", \"진로\"],\n  \"primary\": \"취업\"\n}", "seconds": 1.75}
+{"id": "76", "ai_tags": ["일반"], "ai_primary": "일반", "raw": "{\n\"primary\": \"학사\",\n\"tags\": [\"등록금\", \"성적\"]\n}", "seconds": 1.78}
+{"id": "39", "ai_tags": ["교내활동"], "ai_primary": "교내활동", "raw": "{\n\"primary\": \"일반\",\n\"tags\": [\"교내활동\"]\n}", "seconds": 1.52}
+{"id": "920", "ai_tags": ["취업"], "ai_primary": "취업", "raw": "{\n\"primary\": \"수강\",\n\"tags\": [\"취업\", \"진로\"]\n}", "seconds": 1.77}
+{"id": "53", "ai_tags": ["대학원", "학사"], "ai_primary": "대학원", "raw": "{\n\"primary\": \"수강\",\n\"tags\": [\"대학원\", \"학사\"]\n}", "seconds": 1.75}
+{"id": "67", "ai_tags": ["학사"], "ai_primary": "학사", "raw": "{\n\"primary\": \"수강\",\n\"tags\": [\"학사\", \"등록금\"]\n}", "seconds": 1.73}
+{"id": "20", "ai_tags": ["취업", "학과소식"], "ai_primary": "취업", "raw": "{\n  \"tags\": [\"취업\", \"학과소식\"],\n  \"primary\": \"취업\"\n}", "seconds": 2.1}
+{"id": "123", "ai_tags": ["학사", "지원금"], "ai_primary": "학사", "raw": "{\n  \"tags\": [\"학사\", \"지원금\"],\n  \"primary\": \"학사\"\n}", "seconds": 1.77}
+{"id": "11", "ai_tags": ["일반"], "ai_primary": "일반", "raw": "{\n\"primary\": \"취업\",\n\"tags\": [\"지원\", \"서비스\"]\n}", "seconds": 1.51}
+{"id": "252", "ai_tags": ["장학금", "지원금"], "ai_primary": "장학금", "raw": "{\n\"primary\": \"수강\",\n\"tags\": [\"장학금\", \"지원금\"]\n}", "seconds": 1.7}

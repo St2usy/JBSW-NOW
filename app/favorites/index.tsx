@@ -28,7 +28,7 @@ const FavoritesScreen = memo(() => {
         startAt: n.date || n.crawled_at || new Date().toISOString(),
         endAt: null,
         location: null,
-        tags: ["공지"],
+        tags: Array.isArray(n.tags) ? n.tags : [],
         org: { id: "notice", name: n.author || "공지", logoUrl: null },
         sourceUrl: n.url || null,
         posterImageUrl: Array.isArray(n.image_urls) && n.image_urls.length > 0 ? n.image_urls[0] : null,

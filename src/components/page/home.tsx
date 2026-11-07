@@ -44,7 +44,7 @@ export default function Home() {
             startAt: deriveIsoDate(n.date || n.crawled_at),
             endAt: null,
             location: null,
-            tags: ["공지"],
+            tags: Array.isArray(n.tags) ? n.tags : [],
             org: { id: "notice", name: n.author || "공지", logoUrl: null },
             sourceUrl: n.url || null,
             posterImageUrl: firstImage,

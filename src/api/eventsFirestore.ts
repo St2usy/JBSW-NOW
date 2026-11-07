@@ -140,6 +140,7 @@ type ApiNotice = {
   crawled_at?: string | null;
   image_urls?: string[] | null;
   attachments?: string | null;
+  tags?: string[] | null;
 };
 
 function cleanNoticeContent(rawContent: string): string {
@@ -164,6 +165,7 @@ function mapApiNotice(d: ApiNotice): Notice {
     image_urls: Array.isArray(d.image_urls) ? d.image_urls : null,
     attachments: d.attachments ?? null,
     views: d.views ?? null,
+    tags: Array.isArray(d.tags) ? d.tags.filter((tag) => typeof tag === "string") : [],
   };
 }
 
@@ -190,7 +192,7 @@ export async function fetchRecentNoticeBanners(maxCount: number = 10): Promise<E
       startAt: noticeStartAt(d.date),
       endAt: null,
       location: null,
-      tags: ["공지"],
+      tags: Array.isArray(d.tags) ? d.tags.filter((tag) => typeof tag === "string") : [],
       org: { id: "notice", name: d.author || "공지", logoUrl: null },
       sourceUrl: d.url ?? null,
       posterImageUrl: image,
@@ -271,6 +273,7 @@ export type Notice = {
   image_urls?: string[] | null;
   attachments?: string | null; // 예: "3"
   views?: string | null;
+  tags?: string[];
   createdAt?: any;
   updatedAt?: any;
 };

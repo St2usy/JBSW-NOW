@@ -9,7 +9,6 @@ import { fetchRecentHotTopWithinDays, getHotClickCounts } from "../../src/servic
 import { fetchNoticesCleaned, type Notice } from "../../src/api/eventsFirestore";
 import { normalize } from "../../src/services/search";
 import { subscribe as subscribeFavorites, hydrateFavorites as hydrateFavs } from "../../src/services/favorites";
-import { enrichEventsWithTags } from "../../src/services/tags";
 import { PageTransition } from "../../src/components/PageTransition";
 import { usePageTransition } from "../../src/hooks/usePageTransition";
 
@@ -25,6 +24,8 @@ const TAG_COLORS: Record<string, { bg: string; text: string; border?: string }> 
   "봉사활동": { bg: "#F1F8E9", text: "#558B2F", border: "#AED581" },
   "교내활동": { bg: "#FCE4EC", text: "#C2185B", border: "#F48FB1" },
   "대외활동": { bg: "#E0F2F1", text: "#00695C", border: "#80CBC4" },
+  "지원금": { bg: "#FFF8E1", text: "#F57F17", border: "#FFE082" },
+  "장학금": { bg: "#EDE7F6", text: "#512DA8", border: "#B39DDB" },
 };
 
 const HotScreen = memo(() => {
@@ -87,13 +88,7 @@ const HotScreen = memo(() => {
       
       console.log("[HOT] load: after notice-merge", withSummary.slice(0, 3).map(previewItem as any));
       
-      // 태그 추가 (비동기, UI 블로킹 없음)
       setAllEvents(withSummary as any);
-      enrichEventsWithTags(withSummary as any).then((enriched) => {
-        setAllEvents(enriched);
-      }).catch((err) => {
-        console.warn("[HOT] enrichEventsWithTags failed", err);
-      });
     } catch (e) {
       console.error("[HOT] load error", e);
       setAllEvents([]);
@@ -142,13 +137,7 @@ const HotScreen = memo(() => {
       
       console.log("[HOT] refresh: after notice-merge", withSummary.slice(0, 3).map(previewItem as any));
       
-      // 태그 추가 (비동기, UI 블로킹 없음)
       setAllEvents(withSummary as any);
-      enrichEventsWithTags(withSummary as any).then((enriched) => {
-        setAllEvents(enriched);
-      }).catch((err) => {
-        console.warn("[HOT] enrichEventsWithTags failed", err);
-      });
     } catch (e) {
       console.error("[HOT] refresh error", e);
     } finally {

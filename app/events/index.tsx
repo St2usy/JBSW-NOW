@@ -5,7 +5,7 @@ import { Ionicons } from "@expo/vector-icons";
 import SectionHeader from "../../src/components/SectionHeader";
 import EventsList from "../../src/components/EventsList";
 import { fetchNoticesCleaned } from "../../src/api/eventsFirestore";
-import { enrichEventsWithTags, TAG_COLORS } from "../../src/services/tags";
+import { TAG_COLORS } from "../../src/services/tags";
 import { searchByAllWords, normalize, extractHashtags, filterItemsByAllTags } from "../../src/services/search";
 import { useLocalSearchParams } from "expo-router";
 import { subscribe as subscribeFavorites, hydrateFavorites as hydrateFavs } from "../../src/services/favorites";
@@ -47,7 +47,7 @@ const EventsScreen = memo(() => {
             startAt: startAtIso,
             endAt: null,
             location: null,
-            tags: [],
+            tags: Array.isArray(n.tags) ? n.tags : [],
             org: { id: "notice", name: n.author || "공지", logoUrl: null },
             sourceUrl: n.url || null,
             posterImageUrl: Array.isArray(n.image_urls) && n.image_urls.length > 0 ? n.image_urls[0] : null,
@@ -55,7 +55,7 @@ const EventsScreen = memo(() => {
           } as any;
         });
 
-        const noticeAsEvents = await enrichEventsWithTags(noticeAsEventsRaw as any);
+        const noticeAsEvents = noticeAsEventsRaw;
         noticeAsEvents.sort((a: any, b: any) => (toDateMsFromString(b.startAt) - toDateMsFromString(a.startAt)));
         setAllItems(noticeAsEvents);
       } catch (e) {

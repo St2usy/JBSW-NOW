@@ -204,7 +204,7 @@ function noticeToEvent(notice: any): Event {
     startAt: startAtIso,
     endAt: null,
     location: null,
-    tags: ["공지"],
+    tags: Array.isArray(notice.tags) ? notice.tags : [],
     org: { id: "notice", name: notice.author || "공지", logoUrl: null },
     sourceUrl: notice.url || null,
     posterImageUrl: Array.isArray(notice.image_urls) && notice.image_urls.length > 0 ? notice.image_urls[0] : null,

@@ -7,7 +7,7 @@ import { useRouter, useLocalSearchParams } from "expo-router";
 import { Event } from "../../src/types";
 import EventCard from "../../src/components/EventCard";
 import { fetchNoticesCleaned } from "../../src/api/eventsFirestore";
-import { enrichEventsWithTags, ALLOWED_TAGS, TAG_COLORS } from "../../src/services/tags";
+import { ALLOWED_TAGS, TAG_COLORS } from "../../src/services/tags";
 import { searchByAllWords, normalize, extractHashtags, filterItemsByAllTags } from "../../src/services/search";
 import { PageTransition } from "../../src/components/PageTransition";
 import { usePageTransition } from "../../src/hooks/usePageTransition";
@@ -79,14 +79,13 @@ const SearchScreen = memo(() => {
         startAt: n.date || n.crawled_at || n.firebase_created_at || "",
         endAt: null,
         location: null,
-        tags: [],
+        tags: Array.isArray(n.tags) ? n.tags : [],
         org: { id: "notice", name: n.author || "공지", logoUrl: null },
         sourceUrl: n.url || null,
         posterImageUrl: Array.isArray(n.image_urls) && n.image_urls.length > 0 ? n.image_urls[0] : null,
         ai: null,
       } as any));
-      const noticeAsEvents = await enrichEventsWithTags(noticeAsEventsRaw as any);
-      setAllItems(noticeAsEvents);
+      setAllItems(noticeAsEventsRaw);
       setIsDataLoaded(true);
     } catch (e) {
       console.warn("[UI] preloadData error", e);

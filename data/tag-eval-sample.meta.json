@@ -1,0 +1,37 @@
+{
+  "seed": 42,
+  "source": "postgres csai.articles via crawler-postgres-1",
+  "filter": "deleted_at IS NULL AND written_on >= 2026-07-01 AND source_url host csai.jbnu.ac.kr AND a single board",
+  "source_count": 330,
+  "single_board_count": 329,
+  "excluded": "1 article sighted on every board was left out of the 100",
+  "sample_size": 100,
+  "quotas": {
+    "학과소식": 2,
+    "일반공지": 15,
+    "학사공지": 37,
+    "취업정보": 21,
+    "교류수학": 20,
+    "사업단공지": 5
+  },
+  "order": "stratified by board with largest remainder, then shuffled with Random(42)",
+  "date_min": "2026-07-01",
+  "date_max": "2026-11-04",
+  "allowed_tags": [
+    "수강",
+    "졸업",
+    "학사",
+    "일반",
+    "대학원",
+    "취업",
+    "공모전",
+    "교내활동",
+    "대외활동"
+  ],
+  "scoring_input_field": "text",
+  "scoring_input_rule": "cleanCrawledText(title) and cleanCrawledText(content)[:200], then tags.ts clean(), joined with ' \\n '",
+  "gold_tags": "1 to 3 allowed tags separated by ';'. Use '일반' alone only when no other tag fits.",
+  "gold_primary": "exactly one allowed tag, and it must appear in gold_tags",
+  "source_category_is_not_the_label": true,
+  "image_only_in_sample": 29
+}
